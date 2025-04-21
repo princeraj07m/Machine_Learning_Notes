@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Linear Regression Notes</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    code {
+      background: #eee;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .formula {
+      font-style: italic;
+      color: #c0392b;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    .example {
+      background: #ecf0f1;
+      padding: 15px;
+      border-left: 4px solid #3498db;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Simple Linear Regression</h1>
+    <p><strong>Simple Linear Regression</strong> is a method to model the relationship between a dependent variable (Y) and one independent variable (X) using a straight line.</p>
+
+    <h2>Equation</h2>
+    <p class="formula">Y = β₀ + β₁X + ε</p>
+    <ul>
+      <li><strong>Y</strong> – Dependent variable</li>
+      <li><strong>X</strong> – Independent variable</li>
+      <li><strong>β₀</strong> – Intercept</li>
+      <li><strong>β₁</strong> – Slope</li>
+      <li><strong>ε</strong> – Error term</li>
+    </ul>
+
+    <h2>Assumptions</h2>
+    <ul>
+      <li>Linearity: Relationship between X and Y is linear.</li>
+      <li>Independence: Observations are independent of each other.</li>
+      <li>Homoscedasticity: Constant variance of residuals.</li>
+      <li>Normality: Residuals are normally distributed.</li>
+    </ul>
+
+    <h2>Objective</h2>
+    <p>To estimate <code>β₀</code> and <code>β₁</code> such that the sum of squared residuals is minimized.</p>
+
+    <h2>Example</h2>
+    <div class="example">
+      <p>Suppose we want to predict a student’s score (Y) based on hours studied (X).</p>
+      <p>Given data points:</p>
+      <pre>
+X (Hours): 1, 2, 3, 4, 5  
+Y (Scores): 2, 4, 5, 4, 5
+      </pre>
+      <p>Fitted line: <span class="formula">Y = 2.2 + 0.6X</span></p>
+      <p>Interpretation: For each additional hour studied, the score increases by 0.6 on average.</p>
+    </div>
+  </div>
+</body>
+</html>

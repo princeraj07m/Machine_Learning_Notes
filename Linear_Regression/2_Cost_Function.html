@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cost Function - Linear Regression</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #333;
+    }
+    .container {
+      max-width: 850px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 2em;
+      color: #2d3436;
+      margin-bottom: 10px;
+    }
+    h2 {
+      margin-top: 30px;
+      color: #0984e3;
+    }
+    p, li {
+      line-height: 1.6;
+    }
+    .formula {
+      font-family: monospace;
+      background-color: #f0f0f0;
+      display: inline-block;
+      padding: 6px 12px;
+      margin: 10px 0;
+      border-left: 4px solid #e17055;
+      color: #d63031;
+    }
+    ul {
+      padding-left: 20px;
+    }
+    .highlight-box {
+      background-color: #dfe6e9;
+      border-left: 5px solid #0984e3;
+      padding: 15px 20px;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+    th {
+      background-color: #f1f1f1;
+    }
+    canvas {
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Cost Function in Linear Regression</h1>
+    <p>The <strong>cost function</strong> quantifies the error between predicted and actual values. It is used to optimize model parameters to achieve the best fit line.</p>
+
+    <h2>1. Mean Squared Error (MSE)</h2>
+    <p>The most common cost function in linear regression:</p>
+    <div class="formula">
+      J(β₀, β₁) = (1 / 2n) * Σ(yᵢ - (β₀ + β₁xᵢ))²
+    </div>
+    <ul>
+      <li>n – Number of training examples</li>
+      <li>yᵢ – Actual value</li>
+      <li>xᵢ – Feature/input</li>
+      <li>β₀ – Intercept (bias)</li>
+      <li>β₁ – Coefficient (weight)</li>
+    </ul>
+
+    <h2>2. Objective</h2>
+    <p>Minimize the value of <code>J(β₀, β₁)</code> to make the model’s predictions as accurate as possible.</p>
+
+    <h2>3. Breakdown</h2>
+    <p>Error for a single data point:</p>
+    <div class="formula">Error = yᵢ - ŷᵢ = yᵢ - (β₀ + β₁xᵢ)</div>
+    <p>MSE is the average of squared errors:</p>
+    <div class="formula">MSE = (1 / 2n) * Σ(Error)²</div>
+
+    <h2>4. Example Dataset</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>x (Hours Studied)</th>
+          <th>y (Test Score)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>52</td></tr>
+        <tr><td>2</td><td>58</td></tr>
+        <tr><td>3</td><td>65</td></tr>
+        <tr><td>4</td><td>70</td></tr>
+        <tr><td>5</td><td>75</td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. Example Calculation</h2>
+    <p>Assume β₀ = 50, β₁ = 5, then predicted value ŷ = β₀ + β₁x</p>
+    <p>For x = 1, predicted ŷ = 50 + 5×1 = 55 → error = 52 - 55 = -3 → error² = 9</p>
+    <p>Repeat for all values and compute average of squared errors to get MSE.</p>
+
+    <canvas id="regressionChart" width="800" height="400"></canvas>
+
+    <h2>6. Optimization Using Gradient Descent</h2>
+    <p>We use gradient descent to find the optimal values for β₀ and β₁ by iteratively updating them to minimize the cost function.</p>
+    <div class="highlight-box">
+      <strong>Gradient Descent Update Rules:</strong><br>
+      <div class="formula">β₀ := β₀ - α * (1/2n) * Σ((β₀ + β₁xᵢ) - yᵢ)</div>
+      <div class="formula">β₁ := β₁ - α * (1/2n) * Σ(((β₀ + β₁xᵢ) - yᵢ) * xᵢ)</div>
+      <p>Where <code>α</code> is the learning rate (a small positive number).</p>
+    </div>
+  </div>
+  <script>
+    const ctx = document.getElementById('regressionChart').getContext('2d');
+    const x = [1, 2, 3, 4, 5];
+    const y = [52, 58, 65, 70, 75];
+    const predicted = x.map(xi => 50 + 5 * xi);
+
+    const regressionChart = new Chart(ctx, {
+      type: 'scatter',
+      data: {
+        datasets: [
+          {
+            label: 'Actual Data',
+            data: x.map((xi, i) => ({ x: xi, y: y[i] })),
+            backgroundColor: 'blue'
+          },
+          {
+            type: 'line',
+            label: 'Predicted Line (β₀=50, β₁=5)',
+            data: x.map((xi, i) => ({ x: xi, y: predicted[i] })),
+            borderColor: 'red',
+            borderWidth: 2,
+            fill: false,
+            tension: 0
+          }
+        ]
+      },
+      options: {
+        scales: {
+          x: { title: { display: true, text: 'Hours Studied' } },
+          y: { title: { display: true, text: 'Test Score' } }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
