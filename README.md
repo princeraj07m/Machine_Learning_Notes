@@ -11,6 +11,7 @@
 
 ## 🧠 About the Repository
 
+
 This repository is a structured notebook of an end-to-end **Machine Learning course**. It starts from the very basics, covers every core algorithm, dives into unsupervised learning, and finishes with **real-world projects and MLOps**.
 
 Whether you're just starting out or polishing your skills — this is your **go-to ML learning companion**. 🧪
