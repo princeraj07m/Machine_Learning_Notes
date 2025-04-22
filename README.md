@@ -1,4 +1,4 @@
-# 🚀 Machine Learning Tutorial Notes
+# 🚀 Machine Learning Tutorial Notes - by Prince kumar
 
 <a href="https://princeraj07m.github.io/Machine_Learning_Notes/" target="_blank">
   <img src="https://img.shields.io/badge/Explore%20Now%20→%20Click%20Here-Machine_Learning_Notes-%2300b894?style=for-the-badge&logo=github&logoColor=white" alt="Launch Project" />
