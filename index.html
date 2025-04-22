@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Machine Learning Notes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(145deg, #dff6ff, #ffffff);
+      color: #2d3436;
+    }
+
+    header {
+      background: linear-gradient(to right, #0984e3, #6c5ce7);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5em;
+      letter-spacing: 1px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .topic {
+      background-color: #fff;
+      padding: 15px 20px;
+      border-radius: 12px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .topic:hover {
+      background-color: #f1f2f6;
+    }
+
+    .topic::after {
+      content: "▼";
+      position: absolute;
+      right: 20px;
+      font-size: 14px;
+      transform: rotate(0deg);
+      transition: transform 0.3s ease;
+    }
+
+    .topic.open::after {
+      transform: rotate(180deg);
+    }
+
+    .subtopics {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease-out, padding 0.3s;
+      padding-left: 10px;
+    }
+
+    .subtopics a {
+      display: block;
+      background-color: #f1f2f6;
+      margin: 5px 0;
+      padding: 10px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #2d3436;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+
+    .subtopics a:hover {
+      background-color: #dfe6e9;
+    }
+
+    .topic.open + .subtopics {
+      max-height: 500px;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>📘 Machine Learning Notes</h1>
+  </header>
+
+  <div class="container">
+    <div class="topic" onclick="toggle(this)">📈 Linear Regression</div>
+    <div class="subtopics">
+      <a href="Linear_Regression/1_Simple_Linear_Regression.html">Simple Linear Regression</a>
+      <a href="Linear_Regression/2_Cost_Function.html">Cost Function</a>
+    </div>
+
+    <div class="topic" onclick="toggle(this)">🔐 Logistic Regression</div>
+    <div class="subtopics">
+      <a href="Logistic_Regression/index.html">Logistic Regression Overview</a>
+    </div>
+  </div>
+
+  <script>
+    function toggle(el) {
+      el.classList.toggle("open");
+      const next = el.nextElementSibling;
+      if (next.style.maxHeight) {
+        next.style.maxHeight = null;
+      } else {
+        next.style.maxHeight = next.scrollHeight + "px";
+      }
+    }
+  </script>
+
+</body>
+</html>
