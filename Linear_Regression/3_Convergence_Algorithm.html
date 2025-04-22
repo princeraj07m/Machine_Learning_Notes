@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Convergence Theorem - Linear Regression</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+    .container {
+      max-width: 950px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 14px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    }
+    h1, h2 {
+      color: #2d3436;
+    }
+    h2 {
+      color: #0984e3;
+      margin-top: 30px;
+    }
+    p, li {
+      line-height: 1.8;
+      font-size: 16px;
+    }
+    .formula {
+      font-family: monospace;
+      background-color: #f0f0f0;
+      display: inline-block;
+      padding: 6px 12px;
+      margin: 10px 0;
+      border-left: 5px solid #e17055;
+      color: #d63031;
+    }
+    .highlight-box {
+      background-color: #dfe6e9;
+      border-left: 6px solid #0984e3;
+      padding: 20px;
+      margin-top: 25px;
+      border-radius: 8px;
+    }
+    canvas {
+      margin-top: 30px;
+    }
+    ul {
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Convergence Theorem in Linear Regression</h1>
+    <p>Understanding how <strong>gradient descent converges</strong> is a crucial part of mastering linear regression. The convergence theorem explains how, under the right conditions, gradient descent will always lead to the best possible solution.</p>
+
+    <h2>1. What is Convergence?</h2>
+    <p>Convergence refers to the process where the algorithm iteratively adjusts the model parameters until the cost function reaches its minimum value. This is important because we want our model to make the most accurate predictions by minimizing the error.</p>
+
+    <h2>2. Convexity of Cost Function</h2>
+    <p>The cost function used in linear regression is usually the Mean Squared Error (MSE), which is convex. A convex function has a bowl shape, ensuring that any local minimum is also a global minimum. This makes gradient descent a reliable way to find the optimal solution.</p>
+    <div class="formula">J(θ) = (1 / 2n) * Σ(yᵢ - hθ(xᵢ))²</div>
+
+    <h2>3. Gradient Descent Basics</h2>
+    <p>Gradient descent updates model parameters to reduce the cost function. It's like walking downhill—step by step—until you reach the lowest point:</p>
+    <div class="formula">θ := θ - α * ∇J(θ)</div>
+    <ul>
+      <li><strong>θ</strong>: Parameters (β₀, β₁)</li>
+      <li><strong>α</strong>: Learning rate (step size)</li>
+      <li><strong>∇J(θ)</strong>: Slope/gradient of the cost function</li>
+    </ul>
+
+    <h2>4. Learning Rate and Its Effects</h2>
+    <p>The learning rate α determines how big each update step is. If α is:</p>
+    <ul>
+      <li>Too small → convergence is very slow</li>
+      <li>Too large → steps might overshoot or oscillate</li>
+      <li>Just right → fast and stable convergence</li>
+    </ul>
+
+    <div class="highlight-box">
+      <strong>Good practice:</strong> Start with α = 0.01 or 0.1 and plot the cost function to observe behavior.
+    </div>
+
+    <h2>5. Conditions for Convergence</h2>
+    <ul>
+      <li>The cost function must be convex.</li>
+      <li>Gradient must be correctly computed.</li>
+      <li>Learning rate must be small enough to prevent divergence.</li>
+    </ul>
+
+    <h2>6. Visualization of Convergence</h2>
+    <p>Below is a graph that shows how the cost decreases as the number of iterations increases. This is what convergence looks like in practice:</p>
+    <canvas id="convergenceChart" width="800" height="400"></canvas>
+
+    <h2>7. Example Scenario</h2>
+    <p>Suppose we start with θ = 0 and learning rate α = 0.1. The cost function values might evolve like this over 10 iterations:</p>
+    <div class="highlight-box">
+      <strong>Cost values:</strong> [25, 18, 13, 9, 6, 4, 2.5, 1.4, 0.8, 0.4]
+    </div>
+
+    <h2>8. More Detailed Walkthrough</h2>
+    <p>Let’s say our hypothesis is:</p>
+    <div class="formula">hθ(x) = β₀ + β₁x</div>
+    <p>We begin with initial β₀ = 0 and β₁ = 0. After each iteration, we compute the gradient of the cost and update the parameters using the gradient descent rule. After many iterations, the parameters settle near values that minimize the cost.</p>
+
+    <h2>9. Diagnosing Convergence</h2>
+    <ul>
+      <li>Plot the cost function against iterations. It should slope downward and level off.</li>
+      <li>If the plot goes up and down or spikes, try reducing α.</li>
+      <li>If nothing changes for many iterations, try increasing α slightly.</li>
+    </ul>
+
+    <h2>10. Summary</h2>
+    <p>In linear regression, gradient descent converges smoothly if the cost function is convex and the learning rate is well chosen. Visualizing the convergence and tuning parameters is key to effective learning.</p>
+  </div>
+
+  <script>
+    const ctx = document.getElementById('convergenceChart').getContext('2d');
+    const convergenceChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        datasets: [{
+          label: 'Cost vs Iterations',
+          data: [25, 18, 13, 9, 6, 4, 2.5, 1.4, 0.8, 0.4],
+          borderColor: '#00b894',
+          fill: false,
+          tension: 0.3,
+          pointBackgroundColor: '#00cec9'
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Iterations'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Cost (J)'
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
