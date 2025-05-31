@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Multiple Linear Regression - Performance Metrics</title>
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #333;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 960px;
+      margin: auto;
+      background-color: white;
+      padding: 40px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .metric {
+      background-color: #e3f2fd;
+      padding: 16px;
+      margin: 20px 0;
+      border-left: 6px solid #1976d2;
+      border-radius: 6px;
+    }
+    ul {
+      margin-left: 20px;
+    }
+    pre {
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    .note {
+      background-color: #fff3cd;
+      padding: 12px;
+      border-left: 6px solid #ffc107;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Performance Metrics of Multiple Linear Regression</h1>
+
+    <p>Performance metrics help evaluate how well a regression model predicts the target variable. For Multiple Linear Regression, the following metrics are commonly used:</p>
+
+    <h2>1. Mean Absolute Error (MAE)</h2>
+    <div class="metric">
+      <strong>What it is:</strong> The average of the absolute differences between predicted values and actual values.<br>
+      <strong>Formula:</strong> <code>MAE = (1/n) Σ |y<sub>i</sub> - ŷ<sub>i</sub>|</code><br>
+      <strong>Interpretation:</strong> Lower MAE indicates better model performance. It is less sensitive to outliers compared to MSE.
+    </div>
+
+    <h2>2. Mean Squared Error (MSE)</h2>
+    <div class="metric">
+      <strong>What it is:</strong> The average of squared errors between predicted and actual values.<br>
+      <strong>Formula:</strong> <code>MSE = (1/n) Σ (y<sub>i</sub> - ŷ<sub>i</sub>)²</code><br>
+      <strong>Interpretation:</strong> Emphasizes larger errors more than MAE due to squaring, which makes it sensitive to outliers.
+    </div>
+
+    <h2>3. Root Mean Squared Error (RMSE)</h2>
+    <div class="metric">
+      <strong>What it is:</strong> The square root of the MSE. It is in the same units as the target variable.<br>
+      <strong>Formula:</strong> <code>RMSE = √MSE</code><br>
+      <strong>Interpretation:</strong> A commonly used metric that combines the benefits of both MAE and MSE.
+    </div>
+
+    <h2>4. R² Score (Coefficient of Determination)</h2>
+<div class="metric">
+  <strong>What it is:</strong> R², or the coefficient of determination, measures how well the regression model explains the variability of the dependent variable.<br>
+  <strong>Formula:</strong> <code>R² = 1 - (SS<sub>res</sub> / SS<sub>tot</sub>)</code><br>
+  <strong>Interpretation:</strong> An R² value of 0.85 means 85% of the variance in the dependent variable is explained by the independent variables.<br>
+  <strong>Range:</strong> 0 ≤ R² ≤ 1 (Higher is better). A value of 1 means perfect prediction.
+</div>
+
+<h2>5. Adjusted R²</h2>
+<div class="metric">
+  <strong>What it is:</strong> Adjusted R² adjusts the R² score based on the number of independent variables. It penalizes the addition of irrelevant features.<br>
+  <strong>Formula:</strong> 
+  <code>
+    Adjusted R² = 1 - [(1 - R²) * (n - 1) / (n - k - 1)]
+  </code><br>
+  where:
+  <ul>
+    <li><strong>n</strong> = number of observations</li>
+    <li><strong>k</strong> = number of independent variables</li>
+  </ul>
+  <strong>Interpretation:</strong> Useful in multiple regression to prevent overfitting. If a new variable improves the model, Adjusted R² increases; otherwise, it decreases.
+</div>
+
+<ul>
+<li><strong>R²:</strong> Measures explained variance but can increase with irrelevant predictors.</li>
+<li><strong>Adjusted R²:</strong> Corrects R² for number of predictors; better for model comparison.</li>
+</ul>
+
+    <h2>📌 Python Code Example</h2>
+    <pre><code class="language-python">
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import numpy as np
+
+# True and predicted values
+y_true = [3, -0.5, 2, 7]
+y_pred = [2.5, 0.0, 2, 8]
+
+# Calculate metrics
+mae = mean_absolute_error(y_true, y_pred)
+mse = mean_squared_error(y_true, y_pred)
+rmse = np.sqrt(mse)
+r2 = r2_score(y_true, y_pred)
+
+# Print results
+print("Mean Absolute Error (MAE):", mae)
+print("Mean Squared Error (MSE):", mse)
+print("Root Mean Squared Error (RMSE):", rmse)
+print("R² Score:", r2)
+    </code></pre>
+
+    <h2>Summary</h2>
+    <ul>
+      <li><strong>MAE:</strong> Easy to interpret, less sensitive to large errors.</li>
+      <li><strong>MSE:</strong> Penalizes large errors more heavily.</li>
+      <li><strong>RMSE:</strong> Gives an intuitive sense of prediction error in original units.</li>
+      <li><strong>R²:</strong> Indicates overall model explanatory power.</li>
+    </ul>
+
+    <div class="note">
+      <strong>Tip:</strong> Always analyze residuals (actual - predicted) to identify patterns or model biases.
+    </div>
+  </div>
+</body>
+</html>

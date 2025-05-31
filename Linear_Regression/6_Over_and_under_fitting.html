@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Overfitting and Underfitting in Machine Learning</title>
+
+  <!-- Prism.js for syntax highlighting -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" rel="stylesheet"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 940px;
+      margin: auto;
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #2c3e50;
+    }
+    .concept {
+      background-color: #e8f5e9;
+      border-left: 6px solid #43a047;
+      padding: 16px;
+      margin: 20px 0;
+      border-radius: 6px;
+    }
+    .bad {
+      background-color: #ffebee;
+      border-left: 6px solid #e53935;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 16px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f5f5f5;
+    }
+    pre {
+      background-color: #2d3436;
+      color: #f1f1f1;
+      padding: 16px;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    .note {
+      background-color: #fff9c4;
+      border-left: 6px solid #fbc02d;
+      padding: 12px;
+      margin-top: 20px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Overfitting and Underfitting in Machine Learning</h1>
+
+    <p>Understanding overfitting and underfitting is essential when building machine learning models. They describe two common problems that affect the model's ability to generalize to unseen data.</p>
+
+    <h2>🔺 Overfitting</h2>
+    <div class="concept bad">
+      <strong>Definition:</strong> A model that performs very well on training data but poorly on test data.<br><br>
+      <strong>Why it happens:</strong> The model is too complex and learns noise or fluctuations in the training data.<br><br>
+      <strong>Example:</strong> Using a very high-degree polynomial on a small dataset.<br><br>
+      <strong>Symptoms:</strong>
+      <ul>
+        <li>Low training error</li>
+        <li>High test/validation error</li>
+      </ul>
+    </div>
+
+    <h2>🔻 Underfitting</h2>
+    <div class="concept bad">
+      <strong>Definition:</strong> A model that performs poorly on both training and test data.<br><br>
+      <strong>Why it happens:</strong> The model is too simple to capture the underlying pattern of the data.<br><br>
+      <strong>Example:</strong> Fitting a linear model to non-linear data.<br><br>
+      <strong>Symptoms:</strong>
+      <ul>
+        <li>High training error</li>
+        <li>High test/validation error</li>
+      </ul>
+    </div>
+
+    <h2>📊 Comparison Table</h2>
+    <table>
+      <tr>
+        <th>Aspect</th>
+        <th>Overfitting</th>
+        <th>Underfitting</th>
+      </tr>
+      <tr>
+        <td>Model Complexity</td>
+        <td>Too high</td>
+        <td>Too low</td>
+      </tr>
+      <tr>
+        <td>Training Error</td>
+        <td>Low</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>Test Error</td>
+        <td>High</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td>Generalization</td>
+        <td>Poor</td>
+        <td>Poor</td>
+      </tr>
+      <tr>
+        <td>Solution</td>
+        <td>Reduce complexity, use regularization</td>
+        <td>Increase complexity, add features</td>
+      </tr>
+    </table>
+
+    <h2>🧪 Python Example</h2>
+    <pre><code class="language-python">
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Generate synthetic data
+np.random.seed(0)
+X = np.sort(np.random.rand(40, 1) * 6, axis=0)
+y = np.sin(X).ravel() + np.random.normal(0, 0.1, X.shape[0])
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3)
+
+# Models: underfit, good fit, overfit
+models = {
+    "Underfit (deg=1)": make_pipeline(PolynomialFeatures(1), LinearRegression()),
+    "Good Fit (deg=3)": make_pipeline(PolynomialFeatures(3), LinearRegression()),
+    "Overfit (deg=15)": make_pipeline(PolynomialFeatures(15), LinearRegression())
+}
+
+# Plot
+plt.figure(figsize=(12, 6))
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    test_mse = mean_squared_error(y_test, y_pred)
+    plt.plot(X, model.predict(X), label=f"{name} - MSE: {test_mse:.2f}")
+
+plt.scatter(X, y, color='black', label='Data')
+plt.legend()
+plt.title("Underfitting vs Overfitting")
+plt.show()
+    </code></pre>
+
+    <div class="note">
+      <strong>Tip:</strong> Use techniques like cross-validation, regularization (L1, L2), or pruning (in trees) to prevent overfitting. For underfitting, try adding features or choosing a more complex model.
+    </div>
+  </div>
+</body>
+</html>
