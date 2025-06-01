@@ -5,7 +5,6 @@
 </a>
 
 
-
 ![GitHub repo size](https://img.shields.io/github/repo-size/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
