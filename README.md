@@ -4,7 +4,6 @@
   <img src="https://img.shields.io/badge/Explore%20Now%20→%20Click%20Here-Machine_Learning_Notes-%2300b894?style=for-the-badge&logo=github&logoColor=white" alt="Launch Project" />
 </a>
 
-
 ![GitHub repo size](https://img.shields.io/github/repo-size/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
