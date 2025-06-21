@@ -8,7 +8,6 @@
 ![GitHub repo size](https://img.shields.io/github/repo-size/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
 ![GitHub stars](https://img.shields.io/github/stars/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
-![License](https://img.shields.io/github/license/princeraj07m/Machine-_Learning_Notes?style=for-the-badge)
 
 > A curated collection of detailed notes, code snippets, and real-world ML projects for anyone learning Machine Learning from scratch or revisiting core concepts.
 
